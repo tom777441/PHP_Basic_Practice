@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Canvas</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        
+        <canvas id="myCanvas" width="200" height="100"
+                style="border:1px solid gray">
+        </canvas>
+        <!---操作皆透過script -->
+        <script>
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+      /*     
+            cxt.fillStyle = "#00FF00"; //填滿顏色
+            cxt.strokeStyle = "red";  //畫筆顏色
+            
+            cxt.fillRect(0,0,100,50);   //實心矩形
+            cxt.strokeRect(50,50,100,50)//空心矩形
+       */   
+    
+            /*直線需決定 起點 終點*/
+            cxt.strokeStyle = "gray";
+            cxt.lineWidth="1";
+            /* 建立棋盤線格
+             * (10,0) ->(10,100)
+             * (20,0) ->(20,100)
+             * (30,0) ->(30,100) 
+             */
+            for(i=10;i<=190;i+=10){
+                cxt.moveTo(i,0);
+                cxt.lineTo(i,100);  
+            }
+            /* (0,10)->(200,10)
+             * (0,20)->(200,20)
+             * (0,30)->(200,30)
+             */
+            
+             for(i=10;i<=90;i+=10){
+                cxt.moveTo(0,i);
+                cxt.lineTo(200,i);  
+            }
+             cxt.stroke();
+        </script>
+    </body>
+</html>

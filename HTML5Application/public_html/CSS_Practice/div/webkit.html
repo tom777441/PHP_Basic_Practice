@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>CSS3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            img{
+                /*上右下左(偏移) 重複/延展/兩者皆使用repeat/stretch/round*/
+                -webkit-mask-box-image: 
+                 url(https://cssing.org.ua/examples/cssmask/mask5.png) 0 3 0 3 repeat;
+            }
+        </style>
+    </head>
+    <body>
+        <span id ="sp"></span>
+        <script>
+        document.getElementById("sp").innerHTML = '此圖片僅供學術使用，若有侵犯版權 還請通知下架';
+        </script>
+        <br>
+        <!--- alt屬性: 圖片失效產生--->
+        <img src="archer.jpg"   alt="archer">
+        
+    </body>
+</html>

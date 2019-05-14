@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+取的位置並記錄
+-->
+<html>
+    <head>
+        <title>location recoder</title>
+        <meta charset="UTF-8">
+        <script>
+            //簡化語法
+            function $(id){
+                return document.getElementById(id);
+            }
+            
+            var items=[];
+            
+            function showItems(){
+                var map_uri="http://maps.google.com/?q=";
+                var html = "<ul>";
+                for(var i in items){
+                    var data = items[i].split("\t");
+                    var name = data[0];
+                    var lat = data[1];
+                    var lon = data[2];
+                    var link = "<a href='"+ map_uri+lat+","+lon+"'>"+name+"</a>";
+                    html +="<li>" + link+"</li>";      //list item
+                 }
+                 html +="</li>";
+                 $("listArea").innerHTML =html;
+            }
+            
+            function checkLocalStorage(){
+                if(window.localStorage==undefined){
+                    alert("Fail to support Local Storage!!");
+                    return;
+                }
+               
+                var list = localStorage.getItem("shoplist");
+                
+                if(list==null){
+                    list = "";
+                }else{
+                    items = list.split("\n");
+                    showItems();
+                }
+            }
+            
+             function successCallback(position){
+                 
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                var storeName = $("inputNameText").value;
+                var item = storeName+"\t"+lat+"\t"+lon;
+                items.push(item);   
+                var list = items.join("\n");
+                try{
+                localStorage.removeItem("shoplist");
+                localStorage.setItem("shoplist",list);
+                }catch(err){
+                    alert("Fail to Save!");
+                }
+                $("saveButton").value = "Record it!";
+                $("inputNameText").value="";
+                showItems();
+            }
+            
+            function errorCallback(err){
+                alert("Fail("+err.code+")"+err.message);
+                $("saveButton").value = "Record it!";
+            }
+            
+            function savePlace(){
+                
+                if($("inputNameText").value == ""){
+                    alert("Please input Store Name");
+                    return;
+                }
+                if(window.navigator.geolocation == undefined){
+                    alert("Fail to get loaction!");
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                        successCallback,errorCallback);
+            
+                $("saveButton").value = "Getting current location...";
+            }
+            function deletePlace(){
+                $("listArea").innerHTML =null;
+                items=[];
+            }
+        </script>
+    </head>
+    <body onload="checkLocalStorage()">
+        <div id="inputArea">
+            <form>
+                <input id="inputNameText" type="text" value="" size="20">
+                <br>
+                <input id="saveButton" onclick="savePlace()" type="button" value="Record it!">
+                <input id="deleteButton" onclick="deletePlace()" type="button" value="Clear"> 
+            </form>
+        </div>
+        <div id="listArea">......</div>
+    </body>
+</html>

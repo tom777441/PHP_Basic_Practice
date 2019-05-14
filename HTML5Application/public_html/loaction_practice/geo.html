@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+呼叫watchPosition:持續觀察地理位置的改變
+呼叫clearWatch:停止取得地理位置
+-->
+<html>
+    <head>
+        <title>location</title>
+        <meta charset="UTF-8">
+        <script>
+            function getLocation(){
+                /*確認是否支援*/
+                if(window.navigator.geolocation == undefined){
+                    alert("Fail to get loaction!");
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                        successCallback,errorCallback);
+            }
+            
+            function successCallback(e){
+                /*
+                 * 確認是否有傳回位置，並列出coords物件
+                console.log("Success!");
+                console.log(typeof(e));
+                for(var x in e.coords){
+                    documnet.write(x+" : "+e.coords[x]+"<br>");
+                }
+                */
+                document.write(e.coords.longitude + "," +e.coords.latitude);
+                var mapUrl = "http://maps.google.com.tw/?q=" + e.coords.latitude + "," + e.coords.longitude;
+                //console透過開發者工具的console去檢查
+                console.log(mapUrl);
+                window.location.assign(mapUrl);
+                
+            }
+            
+            function errorCallback(e){
+                console.log("Fail!");
+            }
+        </script>
+    </head>
+    <body onload="getLocation()">
+     
+    </body>
+</html>

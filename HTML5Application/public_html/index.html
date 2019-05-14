@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pratice</title>
+        <script>
+            
+             window.onload = setInterval(updateMeter,500);   
+            function updateValue(){
+               document.getElementById("mySpan").innerHTML= 
+               document.getElementById("myRange").value; 
+            }
+            function updateDate(){
+               document.getElementById("mySpan2").innerHTML= 
+               document.getElementById("myDate").value; 
+            }
+            function updateColor(){
+               document.getElementById("mySpan3").innerHTML= 
+               document.getElementById("myColor").value; 
+            }
+            function updateProgress(){
+               document.getElementById("myProgress").value += 10; 
+            }
+              function updateMeter(){
+                  
+               document.getElementById("myMeter").value += 10; 
+            }
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="setInterval(updateProgress,500)">       <!-- 執行Javascrpit，每0.5秒updateProgress-->
+        <form>
+            emal:
+            <input type ="email">
+            <input type ="submit">
+            <br>
+            url:
+            <input type ="url">
+            <input type ="submit">
+            <br>
+            number:
+            <input type="number" min="1" max="9" step="1">   <!--最低數 最高數 每次點集增益量 -->
+            <input type ="submit">
+            <br>
+            range:
+            <input type ="range" value="2" min="1" max="9" step="1" onchange="updateValue()" id="myRange"> <!--初始量 點擊觸發 id設置-->
+            <input type ="submit">
+            <span id="mySpan"></span>
+            <br>
+            date:
+            <input type ="date" onchange="updateDate()" id="myDate">
+            <input type ="submit">
+            <span id="mySpan2"></span>
+            <br>
+            color:
+            <input type ="color" onchange="updateColor()" id="myColor">
+            <input type ="submit">
+            <span id="mySpan3"></span>
+            <br>
+            placeholder:
+            <input type="text" placeholder="Please input your name">
+            <input type ="submit">
+            
+        </form>
+        <br>
+        progress:
+        <progress id="myProgress" value="10" max="100"></progress>    <!-- 非input元件 顯示進度 onload方法1 -->
+        <br>
+        meter:
+        <meter id="myMeter" low="10" high="80" value="10" max="100"></meter>
+        <!-- 非input元件 顯示進度，透過顏色顯示細節 onload方法2 -->
+    </body>
+</html>

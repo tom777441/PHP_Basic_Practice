@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Circle</title>
+        <meta charset="UTF-8">
+       
+    </head>
+    <body>
+               
+        <canvas id="myCanvas" width="200" height="100"
+                style="border:1px solid gray">
+        </canvas>
+        <!---操作皆透過script -->
+        <script>
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            
+            cxt.strokeStyle="blue";
+            lineWidth="2";
+            cxt.beginPath();
+            cxt.arc(50,40,30,0,Math.PI/180*360,true)    //arc(x,y,r,start,end,direction) 此direction為逆時針方向判斷!!
+            cxt.closePath();
+            cxt.stroke();
+       //   cxt.fillStyle="red";
+       //   cxt.fill();
+       
+            cxt.strokeStyle="black";
+            lineWidth="2";
+            cxt.beginPath();
+            cxt.arc(100,40,30,0,Math.PI/180*360,true)    //arc(x,y,r,start,end,direction)
+            cxt.closePath();
+            cxt.stroke();
+            
+            cxt.strokeStyle="red";
+            lineWidth="2";
+            cxt.beginPath();
+            cxt.arc(150,40,30,0,Math.PI/180*360,true)    //arc(x,y,r,start,end,direction)
+            cxt.closePath();
+            cxt.stroke();
+            
+            cxt.strokeStyle="#FFFF00";
+            lineWidth="2";
+            cxt.beginPath();
+            cxt.arc(75,60,30,0,Math.PI/180*360,true)    //arc(x,y,r,start,end,direction)
+            cxt.closePath();
+            cxt.stroke();
+            
+            
+            cxt.strokeStyle="#0FFF00";
+            lineWidth="2";
+            cxt.beginPath();
+            cxt.arc(125,60,30,0,Math.PI/180*360,true)    //arc(x,y,r,start,end,direction)
+            cxt.closePath();
+            cxt.stroke();
+        </script>
+    </body>
+</html>

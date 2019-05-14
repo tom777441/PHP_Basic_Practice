@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Drag&Drop</title>
+        <meta charset="UTF-8">
+        <style>
+            div{
+                width:300px;
+                height:100px;
+                padding:10px;   /* 外框 */
+                background-color:blue;
+                color:white;     /* 文字顏色 */
+                font-size:24px;  
+            }
+        </style>
+        
+        <script>
+            window.onload = function(){
+                myDiv.addEventListener("dragenter",dragenterHandler);
+                myDiv.addEventListener("dragleave",dragleaveHandler);
+                myDiv.addEventListener("dragover",dragoverHandler);
+                myDiv.addEventListener("drop",dropHandler);
+            };
+            
+            function convert(file){
+                /**check text*/
+                if(!file.type.match(/text.*/)){
+                    alert("Not text file");
+                    return false;
+                }
+                
+                var reader = new FileReader();
+                reader.onloadend = function(){
+                    var s = reader.result;
+                    s = s.replace(/Moriarty/g,"莫瑞亞提");
+                    s = s.replace(/Sherlock/g,"夏洛克");
+                    s = s.replace(/Watson/g,"華生");
+                    
+                    myTextarea.innerHTML = 
+                            "原文: \n" + reader.result + "\n---\n翻譯:\n" + 
+                            s;
+                    
+                };
+                
+         
+                reader.readAsText(file);
+            }
+            
+            function dragenterHandler(){
+                myDiv.style.backgroundColor = "red";
+                myDiv.innerHTML = "Drop it";
+            }
+            
+            
+             function dragleaveHandler(){
+                myDiv.style.backgroundColor = "blue";
+                myDiv.innerHTML = "Come Here.";
+            }
+            
+            
+            function dragoverHandler(e){
+                e.preventDefault();       /* 有東西停留在上面，避免瀏覽器打開檔案 */
+            }
+            
+            function dropHandler(e){
+                e.preventDefault();
+                var files = e.dataTransfer.files;  /* 接收資料*/
+                if(files.length == 0){
+                    return false;
+                }
+                
+                convert(files[0]);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="myDiv">Come Here.</div>
+        <br>
+        <textarea id="myTextarea" cols="50" rows="10" ></textarea>
+        <script>
+            var myDiv = document.getElementById("myDiv");
+            var myTextarea = document.getElementById("myTextarea");
+        </script>
+    </body>
+</html>

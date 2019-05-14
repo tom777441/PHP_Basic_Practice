@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Puzzle</title>
+        <meta charset="UTF-8">
+        <style>
+            *{
+                margin: 0;
+                padding:0;
+                position:absolute; 
+            }
+            #title{
+                background-color:blue;
+                color:white;
+                padding:3px;
+                font-size:14px;
+                width:720px;
+                height:14px;
+            }
+            #myCanvas{
+                top:20px;
+                width:720px;
+                height:640px;
+            }
+       </style>     
+    </head>
+    <body>
+        <div id="title">15 Puzzle &nbsp &nbsp &nbsp 此圖片僅供學術使用，若有侵犯版權 還請通知下架</div>       
+        <canvas id="myCanvas" width="720" height="640">
+        </canvas>
+               
+         <script>
+            var panels=[];
+            var cell_w=720/4;
+            var cell_h=640/4;
+            var pos_array=[[-1,0],[1,0],[0,-1],[0,1]]; //判斷上下左右
+            
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img=new Image();
+            img.src="fate-archer.JPG";
+            img.onload=function(){
+            cxt.drawImage(img,0,0,720,640); //指定放置位置,縮放大小
+            //drawImage(img,sx,sy,swidth,sheight,x,y,width,heigth), sx,xy為指定起始點
+            setTimeout(shufflePanel,3000)
+        };
+        
+        function shufflePanel(){
+            for(var i=0;i<16;i++){
+                panels[i]=i;      //陣列存入no
+            }
+            
+            for(var j=0;j<16;j++){           
+                var r=Math.floor(Math.random()*16);
+                //打散陣列
+                //Math.random:0~1
+                //r:0~15
+                var tmp=panels[r];
+                panels[r] = panels[j];
+                panels[j]=tmp;
+            }
+            drawPanels();
+        }
+        
+        //打亂後的圖片繪製
+        function drawPanels(){
+            for(var i=0;i<16;i++){
+                
+                //擺放的位置
+                var no=panels[i];
+                var px=no%4*cell_w;
+                var py=Math.floor(no/4)*cell_h;
+                
+                //原圖擺放位置
+                var tx=(i%4)*cell_w;
+                var ty=Math.floor(i/4)*cell_h;
+                
+                if(no==15){
+                    cxt.beginPath();
+                    cxt.fillStyle = "black";
+                    cxt.fillRect(tx,ty,cell_w,cell_h);
+                }else{
+                    cxt.drawImage(img,px,py,cell_w,cell_h,
+                                    tx,ty,cell_w,cell_h);
+                }
+                
+                //邊線效果
+                cxt.beginPath();
+                cxt.moveTo(tx+cell_w,ty);
+                cxt.lineTo(tx+cell_w,ty+cell_h);
+                cxt.lineTo(tx,ty+cell_h);
+                cxt.strokeStyle="#999999"
+                cxt.stroke();
+            }
+        }
+        
+        c.ontouchstart=function(e){
+            if(e.touches.length>0){
+                var t=e.touches[0];
+                checkPanelXY(t.clientX,t.clientY);
+            }
+            e.preventDefault();
+        };
+        
+        c.onmousedown=function(e){
+                checkPanelXY(e.clientX,e.clientY);
+        };
+        
+        function checkPanelXY(sx,sy){
+            
+            var col=Math.floor(sx/cell_w);
+            var row=Math.floor((sy-20)/cell_h);
+            var no=col+row*4;
+            
+            //判斷使用者 點黑色那塊
+            if(panels[no]==15){
+                return;
+            }
+            
+            for(var i=0;i<pos_array.length;i++){
+                var row2=pos_array[i][0]+row;
+                var col2=pos_array[i][1]+col;
+                var check=getPanelNo(row2,col2);
+                
+                if(check==15){
+                    swapPanel(row,col,row2,col2);
+                }
+            }
+        }
+        
+        function getPanelNo(row,col){
+            //極限位置,直接忽略
+            if(col<0 || row <0 ||col>=4 ||row>=4){
+                return -1;
+            }
+
+            return panels[col+row*4];
+        }
+        
+        function swapPanel(row1,col1,row2,col2){
+            var index1 = row1*4+col1;
+            var index2 = row2*4+col2;
+            var tmp = panels[index1];
+            panels[index1]=panels[index2];
+            panels[index2]=tmp;
+            
+            drawPanels();
+        }
+         </script>
+    </body>
+</html>

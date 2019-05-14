@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>button-control</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+              body{
+                background-image: url(berserker.JPG);
+                background-repeat:no-repeat;
+            }
+            button{
+                width:100px;
+                height:50px;
+            }
+        </style>
+        <script>
+           function archerBtnClicked(){
+                document.body.style.backgroundImage='url("archer.jpg")';
+            }
+            function mooncancerBtnClicked(){
+                document.body.style.backgroundImage='url("mooncancer.jpg")';
+                 document.body.style.backgroundSize= ("720px, 640px");
+            }
+            function avengerBtnClicked(){
+                 document.body.style.backgroundImage='url("avenger.jpg")';
+                 document.body.style.backgroundSize= ("720px, 640px");
+            }          
+            function resetBtnClicked(){
+                document.body.style.backgroundImage=
+                        'url("berserker.JPG")';
+            }
+        </script>
+    </head>
+    <body>
+       <button id="archerBtn" onclick="archerBtnClicked()">archer</button>
+       <button id="mooncancerBtn" onclick="mooncancerBtnClicked()">mooncancer</button>
+       <button id="avengerBtn" onclick="avengerBtnClicked()">avenger</button>
+       <button id="resetBtn" onclick="resetBtnClicked()">reset</button>
+       <br>
+        <span id ="sp"></span>
+        <script>
+        document.getElementById("sp").innerHTML = '<font color = "red">'+'此圖片僅供學術使用，若有侵犯版權 還請通知下架'+'</font>';
+
+        </script>
+    </body>
+
+</html>

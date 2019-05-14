@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cust_media_controls</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function updateProgress(){
+                
+                //floor()方法是一個靜態方法，只能藉由Math.floor()來呼叫。
+                //Math.floor()方法會傳回小於或等於給定數值(輸入參數)的最大整數。
+                timeDisplay.innerHTML = Math.floor(myVideo.currentTime) + " / " + Math.floor(myVideo.duration);
+                progressSlider.value = myVideo.currentTime;
+            }
+            
+            function PlayOrPause(){
+                
+                //顯示網址
+                myVideoURL.value = myVideo.src;
+                
+                if(myVideo.paused){
+                    myVideo.play();
+                    playButton.value="Pause"
+                }else{
+                    myVideo.pause();
+                    playButton.value="Play"
+                }
+                
+                //影片progress最大值設為影片長度
+                progressSlider.max = myVideo.duration; 
+                
+                //toFix()設置浮點數調整
+                volumeDisplay.innerHTML = "音量" + myVideo.volume.toFixed(2);
+                
+                //時間更新,執行updateProgress()
+                myVideo.addEventListener("timeupdate",updateProgress);
+            }
+            
+            function addVolume(){
+                if(myVideo.volume ==1){
+                    
+                }else if(myVideo.volume>0.9){
+                    myVideo.volume=1;
+                }else{
+                    myVideo.volume+=0.1;
+                }
+                
+                 volumeDisplay.innerHTML = "音量" + myVideo.volume.toFixed(2);
+            }
+            
+              function subVolume(){
+                if(myVideo.volume ==0){
+                    
+                }else if(myVideo.volume<0.1){
+                    myVideo.volume=0;
+                }else{
+                    myVideo.volume-=0.1;
+                }
+                
+                 volumeDisplay.innerHTML = "音量" + myVideo.volume.toFixed(2);
+            }
+            
+            function FullScreen(){
+                myVideo.webkitEnterFullScreen();
+            }
+        </script>
+    </head>
+    
+    <body>
+        <p>此作品僅供學術使用，如有侵權還請通知下架<p>
+        <video id="myVideo" width="800" height="480"
+               src="uwb.mp4"></video>
+        <br>
+        <input id="myVideoURL" type="text" size="70">
+        <br>
+        <input id="playButton" type="button" value="Play" onclick="PlayOrPause()">
+        <input id="FullScreenButton" type="button" value="FullScreen" onClick="FullScreen()">
+        <div>
+            <span id="timeDisplay"> </span>
+            <span id="volumeDisplay"> </span>
+        </div>
+        <div>
+            <input onclick="addVolume()" type="button" value="+">
+            <input onclick="subVolume()" type="button" value="-">
+        </div>
+        
+        <input id="progressSlider" type="range" min="0" value="0">
+        
+        <!--- 設定參數 --->
+         <script>
+            var myVideo = document.getElementById("myVideo");
+            var myVideoURL= document.getElementById("myVideoURL");
+            var playButton = document.getElementById("playButton");
+            var FullScreenButton = document.getElementById("FullScreenButton");
+            var timeDisplay = document.getElementById("timeDisplay");
+            var volumeDisplay = document.getElementById("volumeDisplay");
+            var progressSlider = document.getElementById("progressSlider");
+        </script>
+    </body>
+</html>

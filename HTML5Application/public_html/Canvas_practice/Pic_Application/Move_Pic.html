@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Move_Pic</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function moverightButton(){
+                personLocationX += 10 ;
+                cxt.clearRect(0,0,720,640); //清除畫面
+                cxt.drawImage(img,personLocationX,0,640,480); //重新畫上新位置的圖
+            }
+            function moveleftButton(){
+                personLocationX -= 10 ;
+                cxt.clearRect(0,0,1080,720); //清除畫面
+                cxt.drawImage(img,personLocationX,0,640,480); //重新畫上新位置的圖
+            }
+        </script>
+    </head>
+    <body>
+        <span id ="sp"></span>
+        <script>
+        document.getElementById("sp").innerHTML = '<font color = "black">'+'此圖片僅供學術使用，若有侵犯版權 還請通知下架'+'</font>';
+
+        </script>  
+        <br>
+        <canvas id="myCanvas" width="720" height="640"
+                style="border:1px solid gray">
+        </canvas>
+        <br>
+        <input type="button" value="leftMove" onclick="moveleftButton()">
+        <input type="button" value="rightMove" onclick="moverightButton()">
+         <script>
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img=new Image();
+            var personLocationX=0;
+            img.src="fate_archer.JPG";
+            img.onload=function(){
+            cxt.drawImage(img,0,0,640,480); //指定放置位置,縮放大小
+            //drawImage(img,sx,sy,swidth,sheight,x,y,width,heigth), sx,xy為指定起始點
+        };
+         </script>
+    </body>
+</html>

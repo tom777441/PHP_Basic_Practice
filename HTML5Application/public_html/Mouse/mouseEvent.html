@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>mouseEvent</title>
+        <meta charset="UTF-8">
+        <script>
+            function showInfo(event){
+                var s = "*type=" +event.type;
+                s+= " xy="+event.clientX+","+event.clientY;  //絕對座標 整個網頁
+                s+= " offsetXY="+event.offsetX+","+event.offsetY; //相對座標 根據該元件
+                s+=" target="+event.target.nodeName;
+                document.getElementById("myTextarea").value 
+                        = s+"\n"+  document.getElementById("myTextarea").value; 
+            }
+            
+            window.onload = function(){
+                document.body.onmousedown = showInfo;
+                document.body.onmousemove = showInfo;
+                document.body.onmouseup = showInfo;
+            };
+        </script>
+    </head>
+    <body>
+       <h1>Test Mouse Event</h1>
+       <textarea id="myTextarea" rows="30" cols="80"></textarea>
+    </body>
+</html>

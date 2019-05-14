@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>addPicture</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <span id ="sp"></span>
+        <script>
+        document.getElementById("sp").innerHTML = '<font color = "black">'+'此圖片僅供學術使用，若有侵犯版權 還請通知下架'+'</font>';
+        </script>  
+        <br>
+         <canvas id="myCanvas" width="1080" height="720"
+                style="border:1px solid gray">  
+        </canvas>
+         <script>
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img=new Image();
+            img.src="fate_archer.JPG";
+            img.onload=function(){
+            cxt.drawImage(img,0,0,720,640); //指定放置位置,縮放大小
+            //drawImage(img,sx,sy,swidth,sheight,x,y,width,heigth), sx,xy為指定起始點
+        };
+         </script>
+    </body>
+</html>

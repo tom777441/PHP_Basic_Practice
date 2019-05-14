@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+style可以獨立寫出來
+寫可以直接加在TAG後面
+-->
+<html>
+    <head>
+        <title>rotate</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            div{
+            background-color:lightblue;
+            width:500px; 
+            height:200px;
+            text-align :center;
+            text-decoration: underline;
+        /*    padding: 50px;   內距*/
+            font-size: 100px;
+            
+            /* 順時針旋轉
+            transform:rotate(30deg); 
+            */
+            
+            /* transform:scale(水平倍數,垂直倍數)
+            transform:scale(0.5,0.25)
+            */
+            
+            /* transform:shew(水平度數,垂直度數)
+            transform:skew(60deg,120deg);
+            */
+            
+            /* transition:屬性(寬度/高度/...) 延遲秒數 */
+            transition: width 2s;
+        }
+        /* 滑鼠移置div產生event */
+        div:hover{
+                width:1000px;
+            }
+        </style>
+        <script>
+            var timer;
+           
+            window.onload=function(){
+                var myDiv=document.getElementsByTagName("div")[0];
+                myDiv.onmouseover=function(){
+                    timer=setInterval(function(){
+                        myDiv.innerHTML=myDiv.scrollWidth;
+                        if(myDiv.scrollWidth==500){
+                            clearInterval(timer);
+                        }
+                    },100);
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div></div>
+        
+    </body>
+</html>

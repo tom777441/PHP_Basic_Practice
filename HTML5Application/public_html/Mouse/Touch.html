@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+手機偵測html
+-->
+<html>
+    <head>
+        <title>Touch</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+        <script>
+            function showInfoTouch(event){
+                event.preventDault      //避免畫面產生預設捲動行為
+                var s="*type="+event.type;
+                if(event.touches.length>0){                 //取出破觸到的位置座標(可能多點)
+                    for(var i=0;i<event.touches.length;i++){
+                        var t=event.touch[i];
+                        s+= " xy="+t.pageX+","+t.pageY;
+                    }
+                }
+                
+                document.getElementById("info").innerHTML=s+"<>br"+document.getElementById("info").innerHTML;
+            }
+            
+             window.onload = function(){
+                document.getElementById("info").ontouchstart = showInfoTouch;
+                document.getElementById("info").ontouchmove = showInfoTouch;
+                document.getElementById("info").ontouchend = showInfoTouch;
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Test Mouse Event</h1>
+        <div id="info">*****</div>
+    </body>
+</html>
